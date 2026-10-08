@@ -1,0 +1,39 @@
+services:
+  backend:
+    build: .
+    container_name: mdv-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: safadi18
+      DB_NAME: inventory
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8.0
+    container_name: mdv-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: safadi18
+      MYSQL_DATABASE: inventory
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pYOUR_DATABASE_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+  frontend:
+    build: ./frontend
+    container_name: mdv-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:

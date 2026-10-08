@@ -1,0 +1,17 @@
+export type BadgeVariant =
+  | "paid"
+  | "completed"
+  | "healthy"
+  | "pending"
+  | "low"
+  | "overdue"
+  | "critical"
+  | "cancelled"
+  | "active"
+  | "inactive"
+  | "ONGOING"
+  | "COMPLETED"
+  | "PENDING_DELIVERY"
+  | "PENDING_PAYMENT"
+  | "CANCELLED"
+  | "ongoing";
